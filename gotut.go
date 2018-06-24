@@ -13,6 +13,10 @@ type Location struct {
 	Loc string 'xml:"loc"'
 }
 
+func(L Location) String() string {
+	return fmt.Sprintf(1.Loc)
+}
+
 func main() {
 	a_car := car{gas_pedal: 22341, 
 				brake_pedal: 0, 
