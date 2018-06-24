@@ -1,18 +1,22 @@
 package main
 
 import ("fmt"
+		"encoding/xml"
+		"io/ioutil"
 		"net/http")
 
-func index_handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Whoa, Go is neat")
+type Sitemapindex struct {
+	Locations []Location 'xml:"sitemap"'
 }
 
-func about_handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Expert web design by shashank")
-}
+func main() {
+	a_car := car{gas_pedal: 22341, 
+				brake_pedal: 0, 
+				steering_wheel: 12561, 
+				top_speed_kmh: 225.0}
 
-func main(){
-	http.HandleFunc("/", index_handler)
-	http.HandleFunc("/about/", about_handler)
-	http.ListenAndServe(":8000", nil)
+	//this is same as
+	//a_car := car{22341, 0, 1256, 225.0}
+
+	fmt.Println(a_car.gas_pedal)
 }
