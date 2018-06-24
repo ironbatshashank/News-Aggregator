@@ -1,9 +1,18 @@
 package main
 
-import ("fmt",
+import ("fmt"
 		"net/http")
 
+func index_handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Whoa, Go is neat")
+}
+
+func about_handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Expert web design by shashank")
+}
+
 func main(){
-	http.HandlerFunc("/", index_handler)
+	http.HandleFunc("/", index_handler)
+	http.HandleFunc("/about/", about_handler)
 	http.ListenAndServe(":8000", nil)
 }
