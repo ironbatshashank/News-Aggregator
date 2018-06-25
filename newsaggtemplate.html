@@ -6,9 +6,12 @@
         <th>Keywords</th>
     </thread>
     <tbody>
-        <tr>
-            <td>A title</td>
-            <td>A keyword</td>
-        </tr>
+        {{ range $key, $value := .News }}
+
+            <tr>
+                <td><a href="{{ $value.Location }}" target="_blank">{{ $key }}</a></td>
+                <td>{{ $value.Keyword }}</td>
+            </tr>
+        {{ end }}
     </tbody>
 </table>
