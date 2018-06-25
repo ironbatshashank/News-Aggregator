@@ -1,23 +1,18 @@
 package main
 
 import ("fmt"
-		"encoding/xml"
-		"io/ioutil"
-		"net/http")
+		"net/http"
+		"html/template")
 
-type SitemapIndex struct {
-	Locations []string `xml:"sitemap>loc"`
+type NewsAggPAge struct {
+	Title string
+	News string
 }
 
-type News struct {
-	Titles []string `xml:"url>news>title"`
-	Keywords []string `xml:"url>news>keywords"`
-	Locations []string  `xml:"url>loc"`
-}
-
-type NewsMap struct {
-	Keyword string
-	Location string
+func newsAggHandler(w http.ResponseWriter, r *http.Request) {
+	p := NewsAggPage{Title: "Amazing News Aggregator", News: "some news"}
+	t, _ := template.ParseFiles("basictemplating.html")
+	fmt.Println(t.Execute(w, p))
 }
 
 func main() {
@@ -31,7 +26,14 @@ func main() {
 
 	for _, Location := range s.Locations {
 		resp, _ := http.Get(Location)
+
+		fmt.Println("\n\n\n",idx)
+		fmt.Println("\n",data.Keyword)
+
 		bytes, _ := ioutil.ReadAll(resp.Body)
+
+		fmt.Println("\n\n\n",idx)
+		fmt.Println("\n",data.Keyword)
 		xml.Unmarshal(bytes, &n)
 		for idx, _ := range n.Titles{
 			news_map[n.Titles[idx]] = NewsMap{n.Keywords[idx], n.Locations[idx]}
