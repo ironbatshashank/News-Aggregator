@@ -20,7 +20,7 @@ type NewsMap struct {
 	Location string
 }
 
-func main() {
+func newsAggHandler(w http.ResponseWriter, r *http.Request) {
 
 	var s SitemapIndex
 	var n News
